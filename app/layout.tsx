@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Uniform-Pal — School Uniform Manager",
-  description: "Uniform-Pal helps uniform shop owners stay organised and keep parents informed. Easily add school uniforms with photos, search any school's combination in seconds, and manage your entire catalogue in one place — so parents always know exactly what to buy.",
+  description: "Uniform-Pal helps uniform shop owners stay organised and keep parents informed. Easily add school uniforms with photos, search any school's combination in seconds, and manage your entire catalogue in one place — so parents always know exactly what to buy."   ,    
 };
 
 export default function RootLayout({
