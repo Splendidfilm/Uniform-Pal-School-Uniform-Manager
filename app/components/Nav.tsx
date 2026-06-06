@@ -1,123 +1,115 @@
 'use client'
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Plus, Search, Shirt } from "lucide-react";
 import AddUniformModal from "./AddUniformModal";
 import SearchModal from "./SearchModal";
 
+const NAV_LINKS = [
+  { label: "Home", id: "home" },
+  { label: "Uniforms", id: "uniforms" },
+];
+
 function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
-    const [isAddModalOpen, setAddModalOpen] = useState(false);
-    const [isSearchModalOpen, setSearchModalOpen] = useState(false);
+  const [isAddModalOpen, setAddModalOpen] = useState(false);
+  const [isSearchModalOpen, setSearchModalOpen] = useState(false);
 
-    const handleScroll =(id: string) =>{
-      const section = document.getElementById(id)
-      if (section) {
-        section.scrollIntoView({ behavior: "smooth" })
-      }
-    }
+  const handleScroll = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setMobileOpen(false); // close mobile menu after navigating
+  };
 
   return (
-    <nav className="fixed top-0 inset-x-0 z-40 bg-white shadow-md">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-12 py-4">
-        {/* Logo */}
-        <div className="flex items-center">
-    <div>
-        <h1 className='text-3xl font-bold text-center my-4 text-purple-500 w-1/3'>UniformPal</h1>
-    </div>
-        </div>
+    <>
+      <AddUniformModal isOpen={isAddModalOpen} onClose={() => setAddModalOpen(false)} />
+      <SearchModal isOpen={isSearchModalOpen} onClose={() => setSearchModalOpen(false)} />
 
-        {/* Links + CTA (Desktop) */}
-        <div className="hidden md:flex items-center space-x-8">
-          <a
-          onClick={() => handleScroll("home")}
-            href="#home"
-            className="text-gray-700 font-medium hover:text-purple-600 transition-colors duration-200"
-          >
-            Home
+      <nav className="fixed top-0 inset-x-0 z-40 border-b border-gray-100 bg-white/75 backdrop-blur-xl">
+        <div className="max-w-6xl mx-auto flex items-center justify-between px-5 md:px-10 h-14">
+
+          {/* Logo */}
+          <a href="#home" onClick={() => handleScroll("home")} className="flex items-center gap-2 no-underline">
+            <div className="w-7 h-7 bg-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
+              <Shirt size={14} className="text-white" />
+            </div>
+            <span className="text-base font-semibold text-gray-900">
+              uniform<span className="text-purple-600">pal</span>
+            </span>
           </a>
-          <a
-          onClick={() => handleScroll("uniforms")}
-            href="#uniforms"
-            className="text-gray-700 font-medium hover:text-purple-600 transition-colors duration-200"
-          >
-            Uniforms
-          </a>
-        </div>
 
-        <div className="hidden md:flex items-center space-x-4">
-          <button
-            onClick={() => setAddModalOpen(true)}
-            className="px-5 py-2 rounded-full bg-purple-600 text-white text-sm font-semibold hover:bg-purple-700 transition-all active:scale-95 opacity-95"
-          >
-            Add Uniform
-          </button>
-          <button
-            onClick={() => setSearchModalOpen(true)}
-            className="px-5 py-2 rounded-full border border-gray-300 text-gray-700 text-sm font-semibold hover:bg-gray-100 transition-all active:scale-95 opacity-95"
-          >
-            Search
-          </button>
-        </div>
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-1">
+            {NAV_LINKS.map(({ label, id }) => (
+              <button
+                key={id}
+                onClick={() => handleScroll(id)}
+                className="text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-100 px-3 py-1.5 rounded-full transition-all"
+              >
+                {label}
+              </button>
+            ))}
+          </div>
 
-        {/* Mobile menu toggle */}
-        <div className="md:hidden flex items-center">
+          {/* Desktop CTAs */}
+          <div className="hidden md:flex items-center gap-2">
+            <button
+              onClick={() => setSearchModalOpen(true)}
+              className="inline-flex items-center gap-1.5 h-8 px-4 rounded-full border border-gray-200 text-xs font-medium text-gray-700 hover:bg-gray-50 transition-all"
+            >
+              <Search size={13} /> Search
+            </button>
+            <button
+              onClick={() => setAddModalOpen(true)}
+              className="inline-flex items-center gap-1.5 h-8 px-4 rounded-full bg-purple-600 hover:bg-purple-700 text-xs font-medium text-white transition-all"
+            >
+              <Plus size={13} /> Add uniform
+            </button>
+          </div>
+
+          {/* Hamburger */}
           <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="p-2 rounded-md hover:bg-gray-100 transition"
+            onClick={() => setMobileOpen((o) => !o)}
+            className="md:hidden w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 transition-all"
             aria-label="Toggle menu"
           >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileOpen ? <X size={16} /> : <Menu size={16} />}
           </button>
         </div>
-      </div>
 
-      {/* Mobile Menu Items */}
-      {mobileOpen && (
-        <div className="md:hidden bg-white shadow-md border-t border-gray-200">
-          <div className="px-6 py-4 space-y-4">
-            <a
-          onClick={() => handleScroll("home")}
-              href="#home"
-              className="block text-gray-700 font-medium hover:text-purple-600 transition-all active:scale-95 opacity-95"
-            >
-              Home
-            </a>
-            <a
-          onClick={() => handleScroll("uniforms")}
-              href="#uniforms"
-              className="block text-gray-700 font-medium hover:text-purple-600 transition-all active:scale-95 opacity-95"
-            >
-              Uniforms
-            </a>
-            <div className="pt-4 border-t border-gray-200 space-y-2 transition-all">
+        {/* Mobile drawer */}
+        {mobileOpen && (
+          <div className="md:hidden bg-white/95 backdrop-blur-xl border-t border-gray-100 px-5 py-4">
+            <div className="flex flex-col gap-1 mb-4">
+              {NAV_LINKS.map(({ label, id }) => (
+                <button
+                  key={id}
+                  onClick={() => handleScroll(id)}
+                  className="text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 px-3 py-2.5 rounded-xl text-left transition-all"
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            <div className="h-px bg-gray-100 mb-4" />
+            <div className="flex flex-col gap-2">
               <button
-                onClick={() => { setAddModalOpen(true)}}
-                className="w-full px-4 py-2 rounded-full bg-purple-600 text-white font-semibold hover:bg-purple-700 transition-all active:scale-95 opacity-95"
+                onClick={() => { setSearchModalOpen(true); setMobileOpen(false); }}
+                className="w-full h-11 flex items-center justify-center gap-2 rounded-full border border-gray-200 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all"
               >
-                Add Uniform
+                <Search size={15} /> Search
               </button>
               <button
-                onClick={() => {setSearchModalOpen(true)}}
-                className="w-full px-4 py-2 rounded-full border border-gray-300 text-gray-700 font-semibold hover:bg-gray-100 transition-all active:scale-95 opacity-95"
+                onClick={() => { setAddModalOpen(true); setMobileOpen(false); }}
+                className="w-full h-11 flex items-center justify-center gap-2 rounded-full bg-purple-600 hover:bg-purple-700 text-sm font-medium text-white transition-all"
               >
-                Search
+                <Plus size={15} /> Add uniform
               </button>
             </div>
           </div>
-        </div>
-      )}
-
-      <AddUniformModal
-        isOpen={isAddModalOpen}
-        onClose={() => setAddModalOpen(false)}
-      />
-      <SearchModal
-        isOpen={isSearchModalOpen}
-        onClose={() => setSearchModalOpen(false)}
-      />
-    </nav>
+        )}
+      </nav>
+    </>
   );
 }
 
 export default Nav;
-
