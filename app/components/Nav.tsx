@@ -16,7 +16,7 @@ function Nav() {
 
   const handleScroll = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    setMobileOpen(false); // close mobile menu after navigating
+    setMobileOpen(false); 
   };
 
   return (
@@ -24,31 +24,18 @@ function Nav() {
       <AddUniformModal isOpen={isAddModalOpen} onClose={() => setAddModalOpen(false)} />
       <SearchModal isOpen={isSearchModalOpen} onClose={() => setSearchModalOpen(false)} />
 
-      <nav className="fixed top-0 inset-x-0 z-40 border-b border-gray-100 bg-white/75 backdrop-blur-xl">
-        <div className="max-w-6xl mx-auto flex items-center justify-between px-5 md:px-10 h-14">
+      <nav className="fixed top-0 inset-x-0 z-40 border-b border-gray-100 bg-white/75 backdrop-blur-xl w-full">
+        <div className="max-w-6xl mx-auto justify-between flex items-center justify- px-5 md:px-10 h-14 w-full">
 
           {/* Logo */}
           <a href="#home" onClick={() => handleScroll("home")} className="flex items-center gap-2 no-underline">
-            <div className="w-7 h-7 bg-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
+            <div className="w-7 h-7 bg-purple-600 rounded-lg flex items-center justify-center shrink-0">
               <Shirt size={14} className="text-white" />
             </div>
             <span className="text-base font-semibold text-gray-900">
               uniform<span className="text-purple-600">pal</span>
             </span>
           </a>
-
-          {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-1">
-            {NAV_LINKS.map(({ label, id }) => (
-              <button
-                key={id}
-                onClick={() => handleScroll(id)}
-                className="text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-100 px-3 py-1.5 rounded-full transition-all"
-              >
-                {label}
-              </button>
-            ))}
-          </div>
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center gap-2">

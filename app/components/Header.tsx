@@ -32,11 +32,14 @@ function Header() {
           {/* Heading + description */}
           <div className="flex flex-col gap-3">
             <h1 className="text-3xl md:text-4xl font-semibold text-gray-900 leading-tight">
-              Uniforms<br />
-              <span className="text-purple-600">made for you</span>
+              Uniform-
+              <span className="text-purple-600">Pal</span>
             </h1>
+            {/* <h2 className="text-lg md:text-xl text-purple-600 leading-tight" >
+              Forgotten your childs school uniform?...search and find it here.
+            </h2> */}
             <p className="text-sm text-gray-500 leading-relaxed max-w-sm">
-              Simplify uniform selection — add, manage, and find the perfect school combinations instantly.
+              Discover the most comprehensive and up-to-date school uniform database in Nigeria. Find uniform combinations, images, and details for schools across the country—all in one place.
             </p>
           </div>
 

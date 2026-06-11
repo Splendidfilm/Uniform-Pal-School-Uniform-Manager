@@ -1,6 +1,6 @@
 // app/api/uniforms/[id]/route.ts
 import { NextResponse } from "next/server";
-import { db } from "@/lib/firebase";
+import { getDb } from "@/lib/firebase";
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -16,7 +16,7 @@ export async function DELETE(request: Request, { params }: RouteParams) {
     }
 
     // Verify if document exists before deleting
-    const docRef = db.collection("uniforms").doc(id);
+    const docRef = getDb().collection("uniforms").doc(id);
     const doc = await docRef.get();
 
     if (!doc.exists) {
