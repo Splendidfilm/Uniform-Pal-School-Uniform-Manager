@@ -1,12 +1,12 @@
 // app/api/uniforms/route.ts
 import { NextResponse } from "next/server";
-import { db } from "@/lib/firebase";
+import { getDb } from "@/lib/firebase";
 import { cloudinary } from "@/lib/cloudinary";
 
 // --- 1. GET: FETCH ALL UNIFORMS ---
 export async function GET() {
   try {
-    const snapshot = await db.collection("uniforms").orderBy("createdAt", "desc").get();
+    const snapshot = await getDb().collection("uniforms").orderBy("createdAt", "desc").get();
     const uniforms = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     
     return NextResponse.json(uniforms, { status: 200 });
@@ -74,7 +74,7 @@ export async function POST(request: Request) {
     };
 
     // Save to Firestore
-    const docRef = await db.collection("uniforms").add(newUniform);
+    const docRef = await getDb().collection("uniforms").add(newUniform);
 
     return NextResponse.json({ id: docRef.id, ...newUniform }, { status: 201 });
 

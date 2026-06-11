@@ -1,3 +1,4 @@
+'use client'
 import Header from "./components/Header";
 import Nav from "./components/Nav";
 import UniformsCont from "./components/UniformsCont";
