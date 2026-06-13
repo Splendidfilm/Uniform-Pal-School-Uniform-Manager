@@ -2,11 +2,10 @@
 import { NextResponse } from "next/server";
 import { getDb } from "@/lib/firebase";
 
-interface RouteParams {
-  params: Promise<{ id: string }>;
-}
-
-export async function DELETE(request: Request, { params }: RouteParams) {
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
     // Resolve parameters asynchronously as per modern Next.js patterns
     const { id } = await params;
